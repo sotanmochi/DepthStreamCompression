@@ -4,11 +4,11 @@
 
 RVL
 
-<img src="./Images/RVL.jpg" width="50%">
+<img src="./Assets/DepthStreamCompression/Images/RVL.jpg" width="50%">
 
 Temporal RVL
 
-<img src="./Images/TemporalRVL.jpg" width="50%">
+<img src="./Assets/DepthStreamCompression/Images/TemporalRVL.jpg" width="50%">
 
 ## License
 - RVL.cs is licensed under the MIT License.  
