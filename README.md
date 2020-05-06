@@ -35,7 +35,7 @@ H. Jun and J. Bailenson. (2020). Temporal RVL: A Depth Stream Compression Method
 このプロジェクトには、以下のアセットが含まれています。  
 The following assets are included in this project.
 
-- [AzureKinect4Unity](https://github.com/sotanmochi/AzureKinect4Unity)
+- [AzureKinect4Unity](https://github.com/sotanmochi/AzureKinect4Unity)  
   Licensed under the MIT License. Copyright (c) 2020 Soichiro Sugimoto.
 
 - Microsoft Azure Kinect Sensor SDK  
