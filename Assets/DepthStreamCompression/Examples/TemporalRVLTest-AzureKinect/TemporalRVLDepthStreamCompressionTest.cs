@@ -35,8 +35,10 @@ namespace DepthStreamCompression.Test
         short[] _DecodedDepthData;
         short[] _Diff;
 
-        TemporalRVLEncoder _TrvlEncoder;
-        TemporalRVLDecoder _TrvlDecoder;
+        // TemporalRVLEncoder _TrvlEncoder;
+        // TemporalRVLDecoder _TrvlDecoder;
+        NativePlugin.TemporalRVLEncoder _TrvlEncoder;
+        NativePlugin.TemporalRVLDecoder _TrvlDecoder;
         int _FrameCount = 0;
         int _KeyFrameInterval = 30;
 
@@ -77,8 +79,11 @@ namespace DepthStreamCompression.Test
                 Debug.Log("ColorResolution: " + _KinectSensor.ColorImageWidth + "x" + _KinectSensor.ColorImageHeight);
                 Debug.Log("DepthResolution: " + _KinectSensor.DepthImageWidth + "x" + _KinectSensor.DepthImageHeight);
 
-                _TrvlEncoder = new TemporalRVLEncoder(depthImageSize, 10, 2);
-                _TrvlDecoder = new TemporalRVLDecoder(depthImageSize);
+                // _TrvlEncoder = new TemporalRVLEncoder(depthImageSize, 10, 2);
+                // _TrvlDecoder = new TemporalRVLDecoder(depthImageSize);
+
+                _TrvlEncoder = new NativePlugin.TemporalRVLEncoder(depthImageSize, 10, 2);
+                _TrvlDecoder = new NativePlugin.TemporalRVLDecoder(depthImageSize);
             }
         }
 
@@ -98,7 +103,9 @@ namespace DepthStreamCompression.Test
                 _Stopwatch.Start();
 
                 // Temporal RVL compression
-                _EncodedDepthData = _TrvlEncoder.Encode(depthImage, keyFrame);
+                // _EncodedDepthData = _TrvlEncoder.Encode(depthImage, keyFrame);
+                _TrvlEncoder.Encode(ref depthImage, ref _EncodedDepthData, keyFrame);
+                // Debug.Log("KeyFrame: " + keyFrame + ", Encoded.Length: " + _EncodedDepthData.Length);
 
                 _Stopwatch.Stop();
                 long encodingTimeMillseconds = _Stopwatch.ElapsedMilliseconds;
@@ -107,7 +114,8 @@ namespace DepthStreamCompression.Test
                 _Stopwatch.Start();
 
                 // Temporal RVL decompression
-                _DecodedDepthData = _TrvlDecoder.Decode(_EncodedDepthData, keyFrame);
+                // _DecodedDepthData = _TrvlDecoder.Decode(_EncodedDepthData, keyFrame);
+                _TrvlDecoder.Decode(ref _EncodedDepthData, ref _DecodedDepthData, keyFrame);
 
                 _Stopwatch.Stop();
                 long decodingTimeMillseconds = _Stopwatch.ElapsedMilliseconds;

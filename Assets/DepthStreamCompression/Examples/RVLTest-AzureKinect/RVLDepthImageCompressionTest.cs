@@ -20,7 +20,7 @@ namespace DepthStreamCompression.Test
         [SerializeField] GameObject _DiffImageObject;
         [SerializeField] GameObject _ColorImageObject;
 
-        [SerializeField] Text _DepthImageSize;
+        [SerializeField] Text _Text_DepthImageSize;
         [SerializeField] Text _CompressedDepthImageSize;
         [SerializeField] Text _ProcessingTime;
 
@@ -34,6 +34,7 @@ namespace DepthStreamCompression.Test
         byte[] _EncodedDepthData;
         short[] _DecodedDepthData;
         short[] _Diff;
+        int _DepthImageSize;
 
         System.Diagnostics.Stopwatch _Stopwatch = new System.Diagnostics.Stopwatch();
 
@@ -42,11 +43,11 @@ namespace DepthStreamCompression.Test
             _KinectSensor = _AzureKinectManager.Sensor;
             if (_KinectSensor != null)
             {
-                int depthImageSize = _KinectSensor.DepthImageWidth * _KinectSensor.DepthImageHeight;
-                _DepthRawData = new byte[depthImageSize * sizeof(short)];
-                _EncodedDepthData = new byte[depthImageSize];
-                _DecodedDepthData = new short[depthImageSize];
-                _Diff = new short[depthImageSize];
+                _DepthImageSize = _KinectSensor.DepthImageWidth * _KinectSensor.DepthImageHeight;
+                _DepthRawData = new byte[_DepthImageSize * sizeof(short)];
+                _EncodedDepthData = new byte[_DepthImageSize];
+                _DecodedDepthData = new short[_DepthImageSize];
+                _Diff = new short[_DepthImageSize];
 
                 _DepthImageTexture = new Texture2D(_KinectSensor.DepthImageWidth, _KinectSensor.DepthImageHeight, TextureFormat.R16, false);
                 _DecodedDepthImageTexture = new Texture2D(_KinectSensor.DepthImageWidth, _KinectSensor.DepthImageHeight, TextureFormat.R16, false);
@@ -88,7 +89,9 @@ namespace DepthStreamCompression.Test
                 _Stopwatch.Start();
 
                 // RVL compression
-                int encodedDataBytes = RVL.CompressRVL(depthImage, _EncodedDepthData);
+                // int encodedDataBytes = RVL.CompressRVL(depthImage, _EncodedDepthData);
+                int encodedDataBytes = NativePlugin.RVL.EncodeRVL(ref depthImage, ref _EncodedDepthData, depthImage.Length);
+                // Debug.Log("Encoded.Length: " + _EncodedDepthData.Length);
 
                 _Stopwatch.Stop();
                 long encodingTimeMillseconds = _Stopwatch.ElapsedMilliseconds;
@@ -97,7 +100,8 @@ namespace DepthStreamCompression.Test
                 _Stopwatch.Start();
 
                 // RVL decompression
-                RVL.DecompressRVL(_EncodedDepthData, _DecodedDepthData);
+                // RVL.DecompressRVL(_EncodedDepthData, _DecodedDepthData);
+                NativePlugin.RVL.DecodeRVL(ref _EncodedDepthData, ref _DecodedDepthData, _DecodedDepthData.Length);
 
                 _Stopwatch.Stop();
                 long decodingTimeMillseconds = _Stopwatch.ElapsedMilliseconds;
@@ -123,7 +127,7 @@ namespace DepthStreamCompression.Test
                 int compressedDepthDataSize = encodedDataBytes;
                 float compressionRatio = originalDepthDataSize / compressedDepthDataSize;
 
-                _DepthImageSize.text = string.Format("Size: {2:#,0} [bytes]  Resolution: {0}x{1}",
+                _Text_DepthImageSize.text = string.Format("Size: {2:#,0} [bytes]  Resolution: {0}x{1}",
                                                      _DepthImageTexture.width, _DepthImageTexture.height, originalDepthDataSize);
                 _CompressedDepthImageSize.text = string.Format("Size: {0:#,0} [bytes]  Data compression ratio: {1:F1}",
                                                                compressedDepthDataSize, compressionRatio);

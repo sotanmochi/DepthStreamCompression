@@ -615,7 +615,7 @@ MonoBehaviour:
   _DecodedDepthImageObject: {fileID: 980420454}
   _DiffImageObject: {fileID: 1642710243}
   _ColorImageObject: {fileID: 1869656033}
-  _DepthImageSize: {fileID: 4639337918739389010}
+  _Text_DepthImageSize: {fileID: 4639337918739389010}
   _CompressedDepthImageSize: {fileID: 4639337918986823449}
   _ProcessingTime: {fileID: 4639337919384754710}
 --- !u!1 &1869656033
