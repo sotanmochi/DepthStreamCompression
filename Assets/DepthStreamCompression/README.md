@@ -19,6 +19,14 @@ Temporal RVL
   Copyright (c) 2020 Hanseul Jun  
   Copyright (c) 2020 Soichiro Sugimoto  
 
+- Examplesに含まれるアセットはCC0でライセンスされています。  
+  The assets included in Examples are licensed under CC0.  
+  http://creativecommons.org/publicdomain/zero/1.0/deed.ja  
+  https://creativecommons.org/publicdomain/zero/1.0/deed.en  
+
+- このプロジェクトは、上記のアセットを除き、MIT Licenseでライセンスされています。  
+  This project is licensed under the MIT License excluding the assets listed above.
+
 ## References
 A. D. Wilson. (2017). Fast Lossless Depth Image Compression. 
 - https://www.microsoft.com/en-us/research/uploads/prod/2018/09/p100-wilson.pdf

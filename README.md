@@ -10,15 +10,6 @@ Temporal RVL
 
 <img src="./Assets/DepthStreamCompression/Images/TemporalRVL.jpg" width="50%">
 
-## License
-- RVL.cs is licensed under the MIT License.  
-  Copyright (c) 2017 Andrew D. Wilson  
-  Copyright (c) 2020 Soichiro Sugimoto  
-
-- TemporalRVL.cs is licensed under the MIT License.  
-  Copyright (c) 2020 Hanseul Jun  
-  Copyright (c) 2020 Soichiro Sugimoto  
-
 ## References
 A. D. Wilson. (2017). Fast Lossless Depth Image Compression. 
 - https://www.microsoft.com/en-us/research/uploads/prod/2018/09/p100-wilson.pdf
@@ -30,6 +21,18 @@ H. Jun and J. Bailenson. (2020). Temporal RVL: A Depth Stream Compression Method
 - https://vhil.stanford.edu/mm/2020/02/jun-vr-temporal.pdf
 - https://github.com/hanseuljun/temporal-rvl
 - https://www.youtube.com/watch?v=3qb-oNPf4Es
+
+## License
+- RVL.cs and RVL.cpp are licensed under the MIT License.  
+  Copyright (c) 2017 Andrew D. Wilson  
+  Copyright (c) 2020 Soichiro Sugimoto  
+
+- TemporalRVL.cs and TemporalRVL.cpp are licensed under the MIT License.  
+  Copyright (c) 2020 Hanseul Jun  
+  Copyright (c) 2020 Soichiro Sugimoto  
+
+- このプロジェクトは、上記のアセットとサードパーティのアセットを除き、MIT Licenseでライセンスされています。  
+  This project is licensed under the MIT License excluding the above assets and third party assets.
 
 ## Third party assets
 このプロジェクトには、以下のアセットが含まれています。  

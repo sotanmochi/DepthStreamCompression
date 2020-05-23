@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{907c2888-df41-4dff-9d98-08ad268ce86e}</ItemsProjectGuid>
+    <ItemsProjectName>NativePlugin</ItemsProjectName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NativePlugin.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RVL.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)targetver.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TemporalRVL.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)dllmain.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NativePlugin.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RVL.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TemporalRVL.cpp" />
+  </ItemGroup>
+</Project>
