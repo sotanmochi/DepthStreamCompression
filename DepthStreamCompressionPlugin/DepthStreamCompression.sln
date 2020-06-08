@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativePluginForEditor", "NativePluginForEditor\NativePluginForEditor.vcxproj", "{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativePluginForUWP", "NativePluginForUWP\NativePluginForUWP.vcxproj", "{7F06777E-8728-4501-B638-F1B6FEA8608F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativePlugin", "NativePlugin\NativePlugin.vcxitems", "{907C2888-DF41-4DFF-9D98-08AD268CE86E}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		NativePlugin\NativePlugin.vcxitems*{2d42ad5b-fdbe-483d-9236-c5c84c3794e7}*SharedItemsImports = 4
+		NativePlugin\NativePlugin.vcxitems*{7f06777e-8728-4501-b638-f1b6fea8608f}*SharedItemsImports = 4
+		NativePlugin\NativePlugin.vcxitems*{907c2888-df41-4dff-9d98-08ad268ce86e}*SharedItemsImports = 9
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Debug|ARM.ActiveCfg = Debug|Win32
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Debug|x64.ActiveCfg = Debug|x64
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Debug|x64.Build.0 = Debug|x64
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Debug|x86.ActiveCfg = Debug|Win32
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Debug|x86.Build.0 = Debug|Win32
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Release|ARM.ActiveCfg = Release|Win32
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Release|x64.ActiveCfg = Release|x64
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Release|x64.Build.0 = Release|x64
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Release|x86.ActiveCfg = Release|Win32
+		{2D42AD5B-FDBE-483D-9236-C5C84C3794E7}.Release|x86.Build.0 = Release|Win32
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Debug|ARM.Build.0 = Debug|ARM
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Debug|x64.ActiveCfg = Debug|x64
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Debug|x64.Build.0 = Debug|x64
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Debug|x86.ActiveCfg = Debug|Win32
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Debug|x86.Build.0 = Debug|Win32
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Release|ARM.ActiveCfg = Release|ARM
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Release|ARM.Build.0 = Release|ARM
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Release|x64.ActiveCfg = Release|x64
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Release|x64.Build.0 = Release|x64
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Release|x86.ActiveCfg = Release|Win32
+		{7F06777E-8728-4501-B638-F1B6FEA8608F}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {982C0C49-8495-4708-9DC2-A54889E99C26}
+	EndGlobalSection
+EndGlobal

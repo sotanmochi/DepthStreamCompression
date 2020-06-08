@@ -11,6 +11,9 @@ _gitignores/
 !Assets/Plugins.meta
 Assets/Plugins/*
 
+*.sln
+!DepthStreamCompressionPlugin/*.sln
+
 # ============================================================== #
 # Project specific assets and my own assets (Not ignored assets)
 # ============================================================== #
@@ -74,7 +77,7 @@ ExportedObj/
 .consulo/
 *.csproj
 *.unityproj
-*.sln
+# *.sln
 *.suo
 *.tmp
 *.user
