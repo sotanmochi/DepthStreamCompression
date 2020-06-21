@@ -35,6 +35,19 @@ namespace DepthStreamCompression.NativePlugin
         public static extern int CompressZdepth(IntPtr compressorPtr, int width, int height, short[] depthData, byte[] compressedData, bool keyFrame);
         [DllImport("ZdepthPlugin")]
         public static extern int DecompressZdepth(IntPtr compressorPtr, int width, int height, int compressedSize, byte[] compressedData, short[] depthData);
+
+        [DllImport("ZdepthPlugin")]
+        public static extern IntPtr CreateTemporalZdepthCompressor(int width, int height, short changeThreshold, int invalidThreshold);
+        [DllImport("ZdepthPlugin")]
+        public static extern IntPtr CreateTemporalZdepthDecompressor(int width, int height);
+        [DllImport("ZdepthPlugin")]
+        public static extern void DeleteTemporalZdepthCompressor(IntPtr compressorPtr);
+        [DllImport("ZdepthPlugin")]
+        public static extern void DeleteTemporalZdepthDecompressor(IntPtr decompressorPtr);
+        [DllImport("ZdepthPlugin")]
+        public static extern int CompressTemporalZdepth(IntPtr compressorPtr, short[] depth, byte[] compressedData, bool keyframe);
+        [DllImport("ZdepthPlugin")]
+        public static extern int DecompressTemporalZdepth(IntPtr decompressorPtr, int compressedSize, byte[] compressedData, short[] depth, bool keyframe);
     }
 
     public class RVL
@@ -128,6 +141,52 @@ namespace DepthStreamCompression.NativePlugin
                 Debug.LogError("Zdepth decompression failed: " + result);
             }
             return result;
+        }
+    }
+
+
+    public class TemporalZdepthCompressor
+    {
+        private IntPtr _ptr;
+        private int _frameSize;
+
+        public TemporalZdepthCompressor(int width, int height, short changeThreshold, int invalidThreshold)
+        {
+            _ptr = Plugin.CreateTemporalZdepthCompressor(width, height, changeThreshold, invalidThreshold);
+            _frameSize = width * height;
+        }
+
+        ~TemporalZdepthCompressor()
+        {
+            Plugin.DeleteTemporalZdepthCompressor(_ptr);
+        }
+
+        public int CompressTemporalZdepth(ref short[] depth, ref byte[] compressedData, bool keyframe)
+        {
+            Array.Resize(ref compressedData, _frameSize);
+            int numBytes = Plugin.CompressTemporalZdepth(_ptr, depth, compressedData, keyframe);
+            Array.Resize(ref compressedData, numBytes);
+            return numBytes;
+        }
+    }
+
+    public class TemporalZdepthDecompressor
+    {
+        private IntPtr _ptr;
+
+        public TemporalZdepthDecompressor(int width, int height)
+        {
+            _ptr = Plugin.CreateTemporalZdepthDecompressor(width, height);
+        }
+
+        ~TemporalZdepthDecompressor()
+        {
+            Plugin.DeleteTemporalZdepthDecompressor(_ptr);
+        }
+
+        public int DecompressTemporalZdepth(ref byte[] compressedData, ref short[] depth, bool keyframe)
+        {
+            return Plugin.DecompressTemporalZdepth(_ptr, compressedData.Length, compressedData, depth, keyframe);
         }
     }
 }

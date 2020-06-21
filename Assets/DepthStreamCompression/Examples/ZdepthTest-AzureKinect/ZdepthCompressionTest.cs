@@ -37,6 +37,10 @@ namespace DepthStreamCompression.Test
 
         NativePlugin.ZdepthCompressor _ZdepthCompressor;
         NativePlugin.ZdepthCompressor _ZdepthDecompressor;
+        NativePlugin.TemporalZdepthCompressor _TemporalZdepthCompressor;
+        NativePlugin.TemporalZdepthDecompressor _TemporalZdepthDecompressor;
+        int _FrameCount = 0;
+        int _KeyFrameInterval = 30;
 
         System.Diagnostics.Stopwatch _Stopwatch = new System.Diagnostics.Stopwatch();
 
@@ -77,6 +81,9 @@ namespace DepthStreamCompression.Test
 
                 _ZdepthCompressor = new NativePlugin.ZdepthCompressor();
                 _ZdepthDecompressor = new NativePlugin.ZdepthCompressor();
+
+                _TemporalZdepthCompressor = new NativePlugin.TemporalZdepthCompressor(_KinectSensor.DepthImageWidth, _KinectSensor.DepthImageHeight, 10, 2);
+                _TemporalZdepthDecompressor = new NativePlugin.TemporalZdepthDecompressor(_KinectSensor.DepthImageWidth, _KinectSensor.DepthImageHeight);
             }
         }
 
@@ -90,6 +97,8 @@ namespace DepthStreamCompression.Test
                 _DepthImageTexture.LoadRawTextureData(_DepthRawData);
                 _DepthImageTexture.Apply();
 
+                bool keyFrame = (_FrameCount++ % _KeyFrameInterval == 0);
+
                 _Stopwatch.Reset();
                 _Stopwatch.Start();
 
@@ -97,7 +106,8 @@ namespace DepthStreamCompression.Test
                 int height = _KinectSensor.DepthImageHeight;
 
                 // Zdepth compression
-                _ZdepthCompressor.CompressZdepth(width, height, ref depthImage, ref _EncodedDepthData, true);
+                // _ZdepthCompressor.CompressZdepth(width, height, ref depthImage, ref _EncodedDepthData, keyFrame);
+                _TemporalZdepthCompressor.CompressTemporalZdepth(ref depthImage, ref _EncodedDepthData, keyFrame);
 
                 _Stopwatch.Stop();
                 long encodingTimeMillseconds = _Stopwatch.ElapsedMilliseconds;
@@ -106,7 +116,8 @@ namespace DepthStreamCompression.Test
                 _Stopwatch.Start();
 
                 // Temporal RVL decompression
-                int result = _ZdepthDecompressor.DecompressZdepth(width, height, ref _EncodedDepthData, ref _DecodedDepthData);
+                // int result = _ZdepthDecompressor.DecompressZdepth(width, height, ref _EncodedDepthData, ref _DecodedDepthData);
+                int result = _TemporalZdepthDecompressor.DecompressTemporalZdepth(ref _EncodedDepthData, ref _DecodedDepthData, keyFrame);
 
                 _Stopwatch.Stop();
                 long decodingTimeMillseconds = _Stopwatch.ElapsedMilliseconds;
