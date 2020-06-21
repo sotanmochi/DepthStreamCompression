@@ -3,6 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace DepthStreamCompression.NativePlugin
 {
@@ -12,6 +13,7 @@ namespace DepthStreamCompression.NativePlugin
         public static extern int EncodeRVL(short[] input, byte[] output, int numPixels);
         [DllImport("DepthStreamCompression")]
         public static extern void DecodeRVL(byte[] input, short[] output, int numPixels);
+
         [DllImport("DepthStreamCompression")]
         public static extern IntPtr CreateTemporalRVLEncoder(int frameSize, short changeThreshold, int invalidThreshold);
         [DllImport("DepthStreamCompression")]
@@ -24,6 +26,15 @@ namespace DepthStreamCompression.NativePlugin
         public static extern int EncodeTemporalRVL(IntPtr encoderPtr, short[] depthBuffer, byte[] output, bool keyFrame);
         [DllImport("DepthStreamCompression")]
         public static extern void DecodeTemporalRVL(IntPtr decoderPtr, byte[] trvlFrame, short[] output, bool keyFrame);
+
+        [DllImport("ZdepthPlugin")]
+        public static extern IntPtr CreateZdepthCompressor();
+        [DllImport("ZdepthPlugin")]
+        public static extern void DeleteZdepthCompressor(IntPtr compressorPtr);
+        [DllImport("ZdepthPlugin")]
+        public static extern int CompressZdepth(IntPtr compressorPtr, int width, int height, short[] depthData, byte[] compressedData, bool keyFrame);
+        [DllImport("ZdepthPlugin")]
+        public static extern int DecompressZdepth(IntPtr compressorPtr, int width, int height, int compressedSize, byte[] compressedData, short[] depthData);
     }
 
     public class RVL
@@ -84,6 +95,39 @@ namespace DepthStreamCompression.NativePlugin
         public void Decode(ref byte[] trvlFrame, ref short[] output, bool keyFrame)
         {
             Plugin.DecodeTemporalRVL(_ptr, trvlFrame, output, keyFrame);
+        }
+    }
+
+    public class ZdepthCompressor
+    {
+        private IntPtr _ptr;
+
+        public ZdepthCompressor()
+        {
+            _ptr = Plugin.CreateZdepthCompressor();
+        }
+
+        ~ZdepthCompressor()
+        {
+            Plugin.DeleteZdepthCompressor(_ptr);
+        }
+
+        public int CompressZdepth(int width, int height, ref short[] depthData, ref byte[] output, bool keyFrame)
+        {
+            Array.Resize(ref output, width*height);
+            int numBytes = Plugin.CompressZdepth(_ptr, width, height, depthData, output, keyFrame);
+            Array.Resize(ref output, numBytes);            
+            return numBytes;
+        }
+
+        public int DecompressZdepth(int width, int height, ref byte[] compressedData, ref short[] output)
+        {
+            int result = Plugin.DecompressZdepth(_ptr, width, height, compressedData.Length, compressedData, output);
+            if (result != 4)
+            {
+                Debug.LogError("Zdepth decompression failed: " + result);
+            }
+            return result;
         }
     }
 }
