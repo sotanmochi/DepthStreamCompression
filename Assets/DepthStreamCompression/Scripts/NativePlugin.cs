@@ -186,7 +186,12 @@ namespace DepthStreamCompression.NativePlugin
 
         public int DecompressTemporalZdepth(ref byte[] compressedData, ref short[] depth, bool keyframe)
         {
-            return Plugin.DecompressTemporalZdepth(_ptr, compressedData.Length, compressedData, depth, keyframe);
+            int result = Plugin.DecompressTemporalZdepth(_ptr, compressedData.Length, compressedData, depth, keyframe);
+            if (result != 4)
+            {
+                Debug.LogError("Temporal-Zdepth decompression failed: " + result);
+            }
+            return result;
         }
     }
 }
